@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>水平垂直居中的方法 | 三蚊的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="css">
+    <meta name="description" content="水平居中方法一:行内元素父元素：text-align：center；子元素：display:inline-block！！！text-align只对行内元素起作用 1    html: 2    &amp;lt;div class=&amp;quot;cen1&amp;quot;&amp;gt; 3        &amp;lt;div&amp;gt;水平居中&amp;lt;/div&amp;gt; 4    &amp;lt;/div&amp;gt; 5    css: 6">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="水平垂直居中的方法">
+<meta property="og:url" content="http://yoursite.com/2018/07/31/水平垂直居中的方法/index.html">
+<meta property="og:site_name" content="三蚊的博客">
+<meta property="og:description" content="水平居中方法一:行内元素父元素：text-align：center；子元素：display:inline-block！！！text-align只对行内元素起作用 1    html: 2    &amp;lt;div class=&amp;quot;cen1&amp;quot;&amp;gt; 3        &amp;lt;div&amp;gt;水平居中&amp;lt;/div&amp;gt; 4    &amp;lt;/div&amp;gt; 5    css: 6">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-31T12:34:19.334Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="水平垂直居中的方法">
+<meta name="twitter:description" content="水平居中方法一:行内元素父元素：text-align：center；子元素：display:inline-block！！！text-align只对行内元素起作用 1    html: 2    &amp;lt;div class=&amp;quot;cen1&amp;quot;&amp;gt; 3        &amp;lt;div&amp;gt;水平居中&amp;lt;/div&amp;gt; 4    &amp;lt;/div&amp;gt; 5    css: 6">
+    
+        <link rel="alternate" type="application/atom+xml" title="三蚊的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">UranusChan</h5>
+          <a href="mailto:wencinchen@163.com" title="wencinchen@163.com" class="mail">wencinchen@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wenjingchan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/u/1881214570" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">水平垂直居中的方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">水平垂直居中的方法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-31T07:04:46.000Z" itemprop="datePublished" class="page-time">
+  2018-07-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/study/">study</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#水平居中"><span class="post-toc-number">1.</span> <span class="post-toc-text">水平居中</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法一-行内元素"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">方法一:行内元素</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法二：display：table"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">方法二：display：table</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法三：绝对定位"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">方法三：绝对定位</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法四：有固定的宽，设置margin"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">方法四：有固定的宽，设置margin</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法五：弹性盒子flex"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">方法五：弹性盒子flex</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#垂直居中"><span class="post-toc-number">2.</span> <span class="post-toc-text">垂直居中</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法一：display：table-cell"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">方法一：display：table-cell</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法二：绝对定位"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">方法二：绝对定位</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法三：弹性盒子flex"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">方法三：弹性盒子flex</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#垂直水平居中"><span class="post-toc-number">3.</span> <span class="post-toc-text">垂直水平居中</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法一：绝对定位"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">方法一：绝对定位</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法二：弹性盒子flex"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">方法二：弹性盒子flex</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法三：display：table-cell"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">方法三：display：table-cell</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-水平垂直居中的方法"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">水平垂直居中的方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-31 15:04:46" datetime="2018-07-31T07:04:46.000Z"  itemprop="datePublished">2018-07-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/study/">study</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h2><h3 id="方法一-行内元素"><a href="#方法一-行内元素" class="headerlink" title="方法一:行内元素"></a>方法一:行内元素</h3><p><strong>父元素：text-align：center；子元素：display:inline-block</strong><br><em>！！！text-align只对行内元素起作用</em></p>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen1&quot;&gt;
+3        &lt;div&gt;水平居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen1{
+7        text-align:center;
+8    }
+9    .cen1 div{
+10        display:inline-block;
+11    }
+</code></pre><h3 id="方法二：display：table"><a href="#方法二：display：table" class="headerlink" title="方法二：display：table"></a>方法二：display：table</h3><p><strong>把所有子元素：display:table；margin：0 auto</strong><br><em>要对每一个子元素设置</em></p>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen2&quot;&gt;
+3        &lt;div&gt;水平居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen2{
+7        text-align:center;
+8    }
+9    .cen2 div{
+10        display:table;
+11        margin:0 auto;
+12    }
+</code></pre><h3 id="方法三：绝对定位"><a href="#方法三：绝对定位" class="headerlink" title="方法三：绝对定位"></a>方法三：绝对定位</h3><p><strong>父元素：position：relative；子元素：position：absolute；left：50%；transform：translateX（-50%);</strong></p>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen3&quot;&gt;
+3        &lt;div&gt;水平居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen3{
+7        position:relative;
+8    }
+9    .cen3 div{
+10        position:absolute;
+11        left:50%;
+12        transform：translateX（-50%);
+13    }    
+</code></pre><h3 id="方法四：有固定的宽，设置margin"><a href="#方法四：有固定的宽，设置margin" class="headerlink" title="方法四：有固定的宽，设置margin"></a>方法四：有固定的宽，设置margin</h3><p><strong>对于给定宽度的父元素，可以设置margin:0  auto;</strong><br><em>这是最简单的一个方法，但有很多情况之下，我们是无法确定元素容器的宽度。</em></p>
+<pre><code>1    .cen{
+2        width:400px;
+3          height:250px;
+4        margin 0 auto;
+5   }
+</code></pre><h3 id="方法五：弹性盒子flex"><a href="#方法五：弹性盒子flex" class="headerlink" title="方法五：弹性盒子flex"></a>方法五：弹性盒子flex</h3><p><strong>父元素：display:flex;justify-content:center;</strong><br><em>该方法可以只需要对父元素进行设置。</em></p>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen4&quot;&gt;
+3        &lt;div&gt;水平居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen4{
+7        display:flex;
+8        justify-content:center;
+9    }
+</code></pre><p>flex是弹性布局，将块状元素排成一行，子元素的float、clear和vertical-align属性将失效。</p>
+<p>项目在主轴上的对齐方式(主轴究竟是哪个轴要看属性flex-direction的设置了)</p>
+<p>flex-start：在主轴上由左或者上开始排列</p>
+<p>flex-end：在主轴上由右或者下开始排列</p>
+<p>center：在主轴上居中排列</p>
+<p>space-between：在主轴上左右两端或者上下两端开始排列</p>
+<p>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</p>
+<h2 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h2><h3 id="方法一：display：table-cell"><a href="#方法一：display：table-cell" class="headerlink" title="方法一：display：table-cell"></a>方法一：display：table-cell</h3><p><strong>父元素：display：table-cell；vertical-align：middle；</strong></p>
+<blockquote>
+<p>这里说一下display:table和display:table-cell的区别：<br>- display: table //指定对象作为块元素级的表格。类同于html标签&lt;table&gt;<br>- display: table-cell //指定对象作为表格单元格。类同于html标签&lt;td&gt;</p>
+</blockquote>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen1&quot;&gt;
+3        &lt;div&gt;垂直居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen1{
+7        display:table-cell;
+        vertical-align:middle;
+8    }
+</code></pre><h3 id="方法二：绝对定位"><a href="#方法二：绝对定位" class="headerlink" title="方法二：绝对定位"></a>方法二：绝对定位</h3><p><strong>父元素：父元素position:relative;子元素：position:absolute;top:50%;transform:translate(-50%);</strong></p>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen2&quot;&gt;
+3        &lt;div&gt;垂直居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen2{
+7        position:relative;
+8    }
+9    .cen2 div{
+10        position:absolute;
+11        top:50%;
+12        transform：translateY（-50%);
+13    }
+</code></pre><h3 id="方法三：弹性盒子flex"><a href="#方法三：弹性盒子flex" class="headerlink" title="方法三：弹性盒子flex"></a>方法三：弹性盒子flex</h3><p><strong>父元素：display:flex;align-items:center;</strong></p>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen3&quot;&gt;
+3        &lt;div&gt;垂直居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen4{
+7        display:flex;
+8        align-items:center;
+9    }
+</code></pre><p>align-items属性定义项目在交叉轴上如何对齐。下面拓展一下它的其他值：</p>
+<p>flex-start：交叉轴的起点对齐。</p>
+<p>flex-end：交叉轴的终点对齐。</p>
+<p>center：交叉轴的中点对齐。</p>
+<p>baseline:项目的第一行文字的基线对齐。</p>
+<p>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</p>
+<h2 id="垂直水平居中"><a href="#垂直水平居中" class="headerlink" title="垂直水平居中"></a>垂直水平居中</h2><h3 id="方法一：绝对定位"><a href="#方法一：绝对定位" class="headerlink" title="方法一：绝对定位"></a>方法一：绝对定位</h3><p><strong>父元素：position:relative;子元素：position:absolute；top:50%；left:50%；transform：translate（-50%，-50%；</strong></p>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen1&quot;&gt;
+3        &lt;div&gt;垂直水平居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen1{
+7        position:relative;
+8    }
+9    .cen1 div{
+10        position:absolute;
+11        left:50%;
+12        top：50%；
+13        transform：translate（-50%，-50%);
+14    }
+</code></pre><h3 id="方法二：弹性盒子flex"><a href="#方法二：弹性盒子flex" class="headerlink" title="方法二：弹性盒子flex"></a>方法二：弹性盒子flex</h3><p><strong>父元素：display：flex；justify-content：center；align-items：center；</strong></p>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen2&quot;&gt;
+3        &lt;div&gt;垂直居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen2{
+7        display:flex;
+8        align-items:center;
+9        justify-content:center;
+10    }
+</code></pre><h3 id="方法三：display：table-cell"><a href="#方法三：display：table-cell" class="headerlink" title="方法三：display：table-cell"></a>方法三：display：table-cell</h3><p><strong>父元素：display：table-cell；vertical-align：middle；text-align：center；子元素：display：inline-block；</strong></p>
+<pre><code>1    html:
+2    &lt;div class=&quot;cen3&quot;&gt;
+3        &lt;div&gt;垂直居中&lt;/div&gt;
+4    &lt;/div&gt;
+5    css:
+6    .cen4{
+7        display:table-cell;
+8        vertical-align:middle;
+9        text-align：center；
+10    }
+11    .cen4 div{
+12        display:inline-block;
+13    }
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-07-31T12:34:19.334Z" itemprop="dateUpdated">2018-07-31 20:34:19</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/07/31/水平垂直居中的方法/" target="_blank" rel="external">http://yoursite.com/2018/07/31/水平垂直居中的方法/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="UranusChan">
+            UranusChan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/07/31/水平垂直居中的方法/&title=《水平垂直居中的方法》 — 三蚊的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/07/31/水平垂直居中的方法/&title=《水平垂直居中的方法》 — 三蚊的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/07/31/水平垂直居中的方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《水平垂直居中的方法》 — 三蚊的博客&url=http://yoursite.com/2018/07/31/水平垂直居中的方法/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/07/31/水平垂直居中的方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/31/markdowm文件的编写方法/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">markdowm文件的编写方法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/25/hello-world/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hello World</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>UranusChan &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/07/31/水平垂直居中的方法/&title=《水平垂直居中的方法》 — 三蚊的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/07/31/水平垂直居中的方法/&title=《水平垂直居中的方法》 — 三蚊的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/07/31/水平垂直居中的方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《水平垂直居中的方法》 — 三蚊的博客&url=http://yoursite.com/2018/07/31/水平垂直居中的方法/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/07/31/水平垂直居中的方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3ay27CMBAFUP7/p6nUbRW415NWxT5eoUAeJ4thHn484vX8Xj8/X3179ZvXx69+c9vCwMD4WMbz5bp69OThkiPJfSMqBgbGAYw2yE6O56+suD4GBgbGy6Qtf5QkxcTAwMCYB9wkjVu72p/+b2BgYHwgIy8m6/KyTBB/vRbHwMD4QMZkMPDbn/9ovoGBgfGPGc+b1r0jgfruGBgYWzOS4vOuJC85d631hoGBsTcjv00eTO/akJFfGQMD4wRGXliuhcU8EC8OTTEwMLZmtCPJ/EiedLYvAgMD4zRGckIeRte2iOUh9c0MFgMDY2vGbX27Mh2cFMlv5hsYGBgbMfKLJmVnElLbV1MHawwMjO0Yk80Tbcts0oarG20YGBjbMdrWWFtwtme1SScGBsbejDZQtmPItQFDm55iYGCcw5hs80oeYm37V/vKMDAw9mPMy8t2VDBp5GFgYGA8ytWelW8gy4cNGBgYJzCSsjNvmRUhcqnoLcYDGBgYWzPykJc/VlsGL44NMDAwDmC8Tr8mg8a2rG0DNAYGxgmMur01GFXO08o3eAwMjO0Yz3K109G1hC8P9BgYGCcwJmOAdqhw77BzbZiBgYHxuYw8yObjxrx8zVPGNwEXAwPjAEYb+HJAUsTmgfgShoGBgRGXpnnRe1cpi4GBgdEG00kLby1wY2BgnMNog2ZerM5HC9EdMTAwtmZMBgOTDRnJ62ubfRgYGNsxvgAwY3RyxwRiwQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '三蚊的博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '细嚼慢咽~~~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

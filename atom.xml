@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>三蚊的博客</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2018-07-31T12:34:29.206Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>UranusChan</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>markdowm文件的编写方法</title>
+    <link href="http://yoursite.com/2018/07/31/markdowm%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/07/31/markdowm文件的编写方法/</id>
+    <published>2018-07-31T08:47:22.000Z</published>
+    <updated>2018-07-31T12:34:29.206Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇博客是基于indigo主题写的</p><h2 id="关于标题标题"><a href="#关于标题标题" class="headerlink" title="关于标题标题"></a>关于标题标题</h2><p>标题的写法有六级，几级标题就用几个‘#’围起来，一级标题最大。</p><p><em>！！！标题和‘#’之间一定要有空格，即“## 一级标题 ##”，网上有人直接用“## 一级标题”可以显示，但是我的博客显示不出来，不知道为啥……</em></p><blockquote><p>indigo主题是对每一篇博客都是有导航的，导航的标题就是标题的级别</p></blockquote><img src="/2018/07/31/markdowm文件的编写方法/toc导航.png" title="indigo的博客导航"><h2 id="关于博客中插入本地图片"><a href="#关于博客中插入本地图片" class="headerlink" title="关于博客中插入本地图片"></a>关于博客中插入本地图片</h2><ol><li>修改hexo博客项目根目录_config.yml配置文件post_asset_folder项为true。</li><li>hexo new “hexo发布带图片博客”</li><li>在source/_post文件夹里面就会出现一个“hexo发布带图片博客.md”的文件和一个“hexo发布带图片博客”的文件夹。</li><li>引用图片： </li></ol><blockquote><p>用此种方法，而不是以前的![]()方法，前提是你的hexo的版本是hexo3以上</p></blockquote><p><em>下面是我插入的图片</em></p><img src="/2018/07/31/markdowm文件的编写方法/avatar.jpg" title="图片测试"><h2 id="关于字符"><a href="#关于字符" class="headerlink" title="关于字符"></a>关于字符</h2><p>如果你的文章需要用到特殊字符，比如说“&lt;”“&gt;”等，这种特殊字符一定要用转义字符，例如在前面加反斜杠“\”</p><p>Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：</p><p>\   反斜线<br>`   反引号<br>*   星号<br>_   底线<br>{}  花括号<br>[]  方括号<br>()  括弧<br>#   井字号<br>+   加号<br>-   减号<br>.   英文句点<br>!   惊叹号</p><h2 id="关于链接"><a href="#关于链接" class="headerlink" title="关于链接"></a>关于链接</h2><p>格式：[ 要显示的文字 ]( 链接的地址 )</p><p><a href="https://github.com/wenjingchan" target="_blank" rel="noopener">我的github</a></p><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p>可以用“*”列举每一项，也可以用“+”或者“-”</p><ul><li>Red</li><li>Green</li><li>Blue</li></ul><h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><p>有序列表则使用数字接着一个英文句点，及时你自己写的序号是8——1——6，页面显示出来的结果还是按顺序的1——2——3<br>也可以使用html的代码<br><em>！！！英文圆点和列表项之间要有空格！列表前后也要空一行，否者列表项会显示在同一行上，而不会换行！</em></p><ol><li>Red</li><li>Green</li><li>Blue</li></ol><h2 id="关于代码块"><a href="#关于代码块" class="headerlink" title="关于代码块"></a>关于代码块</h2><p>要在 Markdown 中建立代码区块很简单，只要简单地缩进 4 个空格或是 1 个制表符就可以</p><p>至于行号，emmm……我是手动输入的，不知道有没有更加方便的写法</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这篇博客是基于indigo主题写的&lt;/p&gt;
+&lt;h2 id=&quot;关于标题标题&quot;&gt;&lt;a href=&quot;#关于标题标题&quot; class=&quot;headerlink&quot; title=&quot;关于标题标题&quot;&gt;&lt;/a&gt;关于标题标题&lt;/h2&gt;&lt;p&gt;标题的写法有六级，几级标题就用几个‘#’围起来，一级标题最
+      
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>水平垂直居中的方法</title>
+    <link href="http://yoursite.com/2018/07/31/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/07/31/水平垂直居中的方法/</id>
+    <published>2018-07-31T07:04:46.000Z</published>
+    <updated>2018-07-31T12:34:19.334Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h2><h3 id="方法一-行内元素"><a href="#方法一-行内元素" class="headerlink" title="方法一:行内元素"></a>方法一:行内元素</h3><p><strong>父元素：text-align：center；子元素：display:inline-block</strong><br><em>！！！text-align只对行内元素起作用</em></p><pre><code>1    html:2    &lt;div class=&quot;cen1&quot;&gt;3        &lt;div&gt;水平居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen1{7        text-align:center;8    }9    .cen1 div{10        display:inline-block;11    }</code></pre><h3 id="方法二：display：table"><a href="#方法二：display：table" class="headerlink" title="方法二：display：table"></a>方法二：display：table</h3><p><strong>把所有子元素：display:table；margin：0 auto</strong><br><em>要对每一个子元素设置</em></p><pre><code>1    html:2    &lt;div class=&quot;cen2&quot;&gt;3        &lt;div&gt;水平居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen2{7        text-align:center;8    }9    .cen2 div{10        display:table;11        margin:0 auto;12    }</code></pre><h3 id="方法三：绝对定位"><a href="#方法三：绝对定位" class="headerlink" title="方法三：绝对定位"></a>方法三：绝对定位</h3><p><strong>父元素：position：relative；子元素：position：absolute；left：50%；transform：translateX（-50%);</strong></p><pre><code>1    html:2    &lt;div class=&quot;cen3&quot;&gt;3        &lt;div&gt;水平居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen3{7        position:relative;8    }9    .cen3 div{10        position:absolute;11        left:50%;12        transform：translateX（-50%);13    }    </code></pre><h3 id="方法四：有固定的宽，设置margin"><a href="#方法四：有固定的宽，设置margin" class="headerlink" title="方法四：有固定的宽，设置margin"></a>方法四：有固定的宽，设置margin</h3><p><strong>对于给定宽度的父元素，可以设置margin:0  auto;</strong><br><em>这是最简单的一个方法，但有很多情况之下，我们是无法确定元素容器的宽度。</em></p><pre><code>1    .cen{2        width:400px;3          height:250px;4        margin 0 auto;5   }</code></pre><h3 id="方法五：弹性盒子flex"><a href="#方法五：弹性盒子flex" class="headerlink" title="方法五：弹性盒子flex"></a>方法五：弹性盒子flex</h3><p><strong>父元素：display:flex;justify-content:center;</strong><br><em>该方法可以只需要对父元素进行设置。</em></p><pre><code>1    html:2    &lt;div class=&quot;cen4&quot;&gt;3        &lt;div&gt;水平居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen4{7        display:flex;8        justify-content:center;9    }</code></pre><p>flex是弹性布局，将块状元素排成一行，子元素的float、clear和vertical-align属性将失效。</p><p>项目在主轴上的对齐方式(主轴究竟是哪个轴要看属性flex-direction的设置了)</p><p>flex-start：在主轴上由左或者上开始排列</p><p>flex-end：在主轴上由右或者下开始排列</p><p>center：在主轴上居中排列</p><p>space-between：在主轴上左右两端或者上下两端开始排列</p><p>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</p><h2 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h2><h3 id="方法一：display：table-cell"><a href="#方法一：display：table-cell" class="headerlink" title="方法一：display：table-cell"></a>方法一：display：table-cell</h3><p><strong>父元素：display：table-cell；vertical-align：middle；</strong></p><blockquote><p>这里说一下display:table和display:table-cell的区别：<br>- display: table //指定对象作为块元素级的表格。类同于html标签&lt;table&gt;<br>- display: table-cell //指定对象作为表格单元格。类同于html标签&lt;td&gt;</p></blockquote><pre><code>1    html:2    &lt;div class=&quot;cen1&quot;&gt;3        &lt;div&gt;垂直居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen1{7        display:table-cell;        vertical-align:middle;8    }</code></pre><h3 id="方法二：绝对定位"><a href="#方法二：绝对定位" class="headerlink" title="方法二：绝对定位"></a>方法二：绝对定位</h3><p><strong>父元素：父元素position:relative;子元素：position:absolute;top:50%;transform:translate(-50%);</strong></p><pre><code>1    html:2    &lt;div class=&quot;cen2&quot;&gt;3        &lt;div&gt;垂直居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen2{7        position:relative;8    }9    .cen2 div{10        position:absolute;11        top:50%;12        transform：translateY（-50%);13    }</code></pre><h3 id="方法三：弹性盒子flex"><a href="#方法三：弹性盒子flex" class="headerlink" title="方法三：弹性盒子flex"></a>方法三：弹性盒子flex</h3><p><strong>父元素：display:flex;align-items:center;</strong></p><pre><code>1    html:2    &lt;div class=&quot;cen3&quot;&gt;3        &lt;div&gt;垂直居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen4{7        display:flex;8        align-items:center;9    }</code></pre><p>align-items属性定义项目在交叉轴上如何对齐。下面拓展一下它的其他值：</p><p>flex-start：交叉轴的起点对齐。</p><p>flex-end：交叉轴的终点对齐。</p><p>center：交叉轴的中点对齐。</p><p>baseline:项目的第一行文字的基线对齐。</p><p>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</p><h2 id="垂直水平居中"><a href="#垂直水平居中" class="headerlink" title="垂直水平居中"></a>垂直水平居中</h2><h3 id="方法一：绝对定位"><a href="#方法一：绝对定位" class="headerlink" title="方法一：绝对定位"></a>方法一：绝对定位</h3><p><strong>父元素：position:relative;子元素：position:absolute；top:50%；left:50%；transform：translate（-50%，-50%；</strong></p><pre><code>1    html:2    &lt;div class=&quot;cen1&quot;&gt;3        &lt;div&gt;垂直水平居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen1{7        position:relative;8    }9    .cen1 div{10        position:absolute;11        left:50%;12        top：50%；13        transform：translate（-50%，-50%);14    }</code></pre><h3 id="方法二：弹性盒子flex"><a href="#方法二：弹性盒子flex" class="headerlink" title="方法二：弹性盒子flex"></a>方法二：弹性盒子flex</h3><p><strong>父元素：display：flex；justify-content：center；align-items：center；</strong></p><pre><code>1    html:2    &lt;div class=&quot;cen2&quot;&gt;3        &lt;div&gt;垂直居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen2{7        display:flex;8        align-items:center;9        justify-content:center;10    }</code></pre><h3 id="方法三：display：table-cell"><a href="#方法三：display：table-cell" class="headerlink" title="方法三：display：table-cell"></a>方法三：display：table-cell</h3><p><strong>父元素：display：table-cell；vertical-align：middle；text-align：center；子元素：display：inline-block；</strong></p><pre><code>1    html:2    &lt;div class=&quot;cen3&quot;&gt;3        &lt;div&gt;垂直居中&lt;/div&gt;4    &lt;/div&gt;5    css:6    .cen4{7        display:table-cell;8        vertical-align:middle;9        text-align：center；10    }11    .cen4 div{12        display:inline-block;13    }</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;水平居中&quot;&gt;&lt;a href=&quot;#水平居中&quot; class=&quot;headerlink&quot; title=&quot;水平居中&quot;&gt;&lt;/a&gt;水平居中&lt;/h2&gt;&lt;h3 id=&quot;方法一-行内元素&quot;&gt;&lt;a href=&quot;#方法一-行内元素&quot; class=&quot;headerlink&quot; title=&quot;方
+      
+    
+    </summary>
+    
+      <category term="study" scheme="http://yoursite.com/categories/study/"/>
+    
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2018/07/25/hello-world/"/>
+    <id>http://yoursite.com/2018/07/25/hello-world/</id>
+    <published>2018-07-25T13:46:17.351Z</published>
+    <updated>2018-07-25T13:46:17.352Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
