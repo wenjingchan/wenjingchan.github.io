@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>js继承的几种方式 | 三蚊的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="javascript">
+    <meta name="description" content="ECMAScript支持继承，而且其实现继承的主要是依靠原型链来实现 一、原型链首先要弄清楚构造函数，原型和实例三者的关系！ 构造函数中有一个prototype属性是指向原型的，原型中有一个constructor属性是指向构造函数的（既构造函数和原型对象之间是互相指向对方的），实例对象中有一个[[prototype]]属性是指向原型的。由此可以看出，实例和构造函数之间并没有明确的联系，都是靠原型对">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js继承的几种方式">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/js继承的几种方式/index.html">
+<meta property="og:site_name" content="三蚊的博客">
+<meta property="og:description" content="ECMAScript支持继承，而且其实现继承的主要是依靠原型链来实现 一、原型链首先要弄清楚构造函数，原型和实例三者的关系！ 构造函数中有一个prototype属性是指向原型的，原型中有一个constructor属性是指向构造函数的（既构造函数和原型对象之间是互相指向对方的），实例对象中有一个[[prototype]]属性是指向原型的。由此可以看出，实例和构造函数之间并没有明确的联系，都是靠原型对">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-14T13:11:29.536Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js继承的几种方式">
+<meta name="twitter:description" content="ECMAScript支持继承，而且其实现继承的主要是依靠原型链来实现 一、原型链首先要弄清楚构造函数，原型和实例三者的关系！ 构造函数中有一个prototype属性是指向原型的，原型中有一个constructor属性是指向构造函数的（既构造函数和原型对象之间是互相指向对方的），实例对象中有一个[[prototype]]属性是指向原型的。由此可以看出，实例和构造函数之间并没有明确的联系，都是靠原型对">
+    
+        <link rel="alternate" type="application/atom+xml" title="三蚊的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">UranusChan</h5>
+          <a href="mailto:wencinchen@163.com" title="wencinchen@163.com" class="mail">wencinchen@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wenjingchan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/u/1881214570" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">js继承的几种方式</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">js继承的几种方式</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-14T02:59:41.000Z" itemprop="datePublished" class="page-time">
+  2018-08-14
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、原型链"><span class="post-toc-number">1.</span> <span class="post-toc-text">一、原型链</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二，借用构造函数（解决引用类型的问题，还可以传递参数）"><span class="post-toc-number">2.</span> <span class="post-toc-text">二，借用构造函数（解决引用类型的问题，还可以传递参数）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、组合继承-最常使用的方法）"><span class="post-toc-number">3.</span> <span class="post-toc-text">三、组合继承(最常使用的方法）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、原型式继承"><span class="post-toc-number">4.</span> <span class="post-toc-text">四、原型式继承</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五、寄生式继承"><span class="post-toc-number">5.</span> <span class="post-toc-text">五、寄生式继承</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#六、寄生组合继承"><span class="post-toc-number">6.</span> <span class="post-toc-text">六、寄生组合继承</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-js继承的几种方式"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">js继承的几种方式</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-14 10:59:41" datetime="2018-08-14T02:59:41.000Z"  itemprop="datePublished">2018-08-14</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>ECMAScript支持继承，而且其实现继承的主要是依靠原型链来实现</p>
+<h2 id="一、原型链"><a href="#一、原型链" class="headerlink" title="一、原型链"></a>一、原型链</h2><p><strong>首先要弄清楚构造函数，原型和实例三者的关系！</strong></p>
+<p>构造函数中有一个prototype属性是指向原型的，原型中有一个constructor属性是指向构造函数的（既构造函数和原型对象之间是互相指向对方的），实例对象中有一个[[prototype]]属性是指向原型的。由此可以看出，实例和构造函数之间并没有明确的联系，都是靠原型对象作为两者沟通的桥梁</p>
+<p>当在实例（a,A的实例）中找不到某一属性或方法时，它会去实例的原型对象(A.prototype)中寻找，若是这一个原型对象又是某一个构造函数（B）的实例，结果会怎样？</p>
+<p><strong>若一个原型对象是另一个函数的实例，那么这一个原型对象肯定包含一个指向另一个函数的原型对象的指针（这里如果绕不清楚的话，多看几遍原型对象），又如果另一个函数的原型对象又是另另外一个函数的实例，这样层层递进，就引出了原型链了！</strong></p>
+<blockquote>
+<p>A继承了B——&gt;A的原型是B的实例，A的原型指向B的原型</p>
+</blockquote>
+<p>常用的判断方法：</p>
+<ol>
+<li>.instanceof()——构造函数和实例之间是否存在关系，返回Boolean值</li>
+<li>.isPrototypeOf()——实例与原型对象是否存在关系，返回Boolean值</li>
+</ol>
+<p>=========================================================== </p>
+<pre><code>function SuperType(){
+    this.name=&quot;cwj&quot;;        
+    this.colors=[&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;];    
+}
+
+function SubType(){
+}
+
+subTpe.prototype=new SuperType();//subType的原型继承了SuperType
+
+var instance1=new SubType();
+instance1.colors.push(&quot;yellow&quot;);
+alert(instance1.colors);//&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;,&quot;yellow&quot;
+
+var instance2=new SubType();
+alert(instance2.colors);//&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;,&quot;yellow&quot;
+</code></pre><p><strong>原型链继承存在的两个问题：</strong></p>
+<ol>
+<li>引用类型的问题。通过原型链继承，原先的实例的属性和方法会变成原型的属性和方法，若原先的实例中本来就存在一个引用类型的属性，那么原型也会继承这个引用类型的属性，结果会怎样？该原型的所有实例都会共享这一个引用类型的属性，当修改其中一个实例的这一属性时，另一实例也会反映出来。(就像上图中的colors属性）</li>
+<li>创建子类型实例时，不能向超类型传递数据 ,例如我想在创建实例的同时，让name属性的值为“www”，但是不能实现</li>
+</ol>
+<h2 id="二，借用构造函数（解决引用类型的问题，还可以传递参数）"><a href="#二，借用构造函数（解决引用类型的问题，还可以传递参数）" class="headerlink" title="二，借用构造函数（解决引用类型的问题，还可以传递参数）"></a>二，借用构造函数（解决引用类型的问题，还可以传递参数）</h2><pre><code>function SuperType(){
+    this.name=name;
+    this.colors=[&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;];
+}
+
+function SubType(){
+    SuperType.call(this,&quot;wwww&quot;);//继承了SuperType
+}
+
+var instance1=new SubType();
+instance1.colors.push(&quot;yellow&quot;);
+alert(instance1.colors);//&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;,&quot;yellow&quot;
+alert(instance1,name);//&quot;www&quot;
+
+var instance2=new SubType();
+alert(instance2.colors);//&quot;red&quot;,&quot;black&quot;,&quot;yellow&quot;
+</code></pre><p>用call方法改变SuperType构造函数的执行环境，实际上是在新创建的SubType实例的环境下调用SuperType构造函数，新SubType实例会拥有SuperType函数中定义的所有属性和方法</p>
+<p><strong>借用构造函数存在的问题：函数无法复用</strong></p>
+<h2 id="三、组合继承-最常使用的方法）"><a href="#三、组合继承-最常使用的方法）" class="headerlink" title="三、组合继承(最常使用的方法）"></a>三、组合继承(最常使用的方法）</h2><p>使用原型链实现对原型属性和方法的继承，使用构造函数实现对实例属性的继承</p>
+<pre><code>function SuperType(){
+    this.name=name;
+    this.colors=[&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;];
+}
+
+function SubType(){
+    SuperType.call(this,&quot;wwww&quot;);//继承了SuperType；第二次调用超类构造方法
+}
+
+subType.prototype=new SuperType();//这一步相当于重写了子类的原型，会丢失默认的constructor属性，第一次调用超类构造方法
+subType.protoype.constructor=subType;
+</code></pre><p><strong>缺点：组合继承调用了两次超类的构造方法。第一次是创建子类原型时调用，第二次是在调用SubType构造方法时调用</strong></p>
+<h2 id="四、原型式继承"><a href="#四、原型式继承" class="headerlink" title="四、原型式继承"></a>四、原型式继承</h2><p>在已有原型对象的基础上，创建该原型对象的实例，无需用到构造函数。</p>
+<pre><code>function object(o){
+    function F(){};
+    F.prototype=o;
+    return new F();
+}
+</code></pre><p>ES5新增了<strong>Object.create()方法</strong>，规范了原型式继承，第一个参数是原型对象，第二个参数是定义的属性</p>
+<h2 id="五、寄生式继承"><a href="#五、寄生式继承" class="headerlink" title="五、寄生式继承"></a>五、寄生式继承</h2><p>在原型继承的基础上，利用工厂模式创建对象自己的方法，然后返回这个对象</p>
+<pre><code>function createAnother(original){
+    var clone=object(original);//通过原型模式创建实例对象
+    clone.sayHi=function(){//创建实例对象的方法
+        alert(&quot;hi&quot;);
+    };
+    return clone;//返回对象
+}
+</code></pre><h2 id="六、寄生组合继承"><a href="#六、寄生组合继承" class="headerlink" title="六、寄生组合继承"></a>六、寄生组合继承</h2><p>由于组合继承调用了两次超类的构造函数，所以用寄生式继承代替第一次超类构造函数调用（及代替了原型式继承）。</p>
+<p>原型式继承的重点其实是让子类的原型等于超类的实例，这一点寄生式继承也能做到，并且寄生式继承能在没有构造函数的情况下，创建子类，并使子类的原型等于超类的原型</p>
+<pre><code>function inheritPropotype（subType,superType）{
+    var prototype=object(superType.prototype);//创建一个实例对象，是以superType的原型为原型的实例对象
+    prototype.constructor=subType;//上一步相当于重写了子类的原型，会丢失默认的constructor属性
+    subType.prototype=prototype;
+}
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-08-14T13:11:29.536Z" itemprop="dateUpdated">2018-08-14 21:11:29</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/08/14/js继承的几种方式/" target="_blank" rel="external">http://yoursite.com/2018/08/14/js继承的几种方式/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="UranusChan">
+            UranusChan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/08/14/js继承的几种方式/&title=《js继承的几种方式》 — 三蚊的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/08/14/js继承的几种方式/&title=《js继承的几种方式》 — 三蚊的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/08/14/js继承的几种方式/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《js继承的几种方式》 — 三蚊的博客&url=http://yoursite.com/2018/08/14/js继承的几种方式/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/08/14/js继承的几种方式/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/08/14/js创建对象的几种方式/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">js创建对象的几种方式</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>UranusChan &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/08/14/js继承的几种方式/&title=《js继承的几种方式》 — 三蚊的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/08/14/js继承的几种方式/&title=《js继承的几种方式》 — 三蚊的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/08/14/js继承的几种方式/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《js继承的几种方式》 — 三蚊的博客&url=http://yoursite.com/2018/08/14/js继承的几种方式/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/08/14/js继承的几种方式/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aQY7CMAwFUO5/aWY7EkPH3y5IdV9WqNAkj4UVO348yuP5MurPfz95/fxulccnBgYGxmUZz8NR2e7xJtKZK9/+QcXAwLgB410Eq2z3GFCPjWloxsDAwKgwUl66RQwMDIxPMCpLHr+FgYGBMUlie8G3Xj77Ui6OgYFxQUZ9ge9//sj9BgYGxqUYz3BMrjPrB8F4VxgYGKsZ9QDXOyzOA3d9PxgYGFsZleSwHi57Ybcy/z/rYmBgrGbUy/elyD0O2b1LAgwMjN2MSoBLi/LzprH0NxgYGLsZaeCbHCLT2dKjJwYGxlZGfaJeGJ0E6NEVJgYGxiLGpKyWbnSS6AZXCBgYGKsZx+EyDaPHR8B68tw7UGJgYGxiTFoo6gv3eEGIx8DAuAEjfS1tck2bLeIrBAwMjNWMSeWq8stJOjoJ6BgYGPsY8/JW7+Jz0mxRqhdiYGAsYlSuM3vp6FlXmEGxDwMDYzUjDZGThLM+f9oagoGBsZXRa/k6fp5eWJ5QPcPAwLgB46xWiTRZncwc5LsYGBjrGGkrWK9Vold6CwIuBgbGCsYzHOkC6VvNFBcDA2M1I00d0+JaXNAvt240MRgYGJdl1BtS06nryBOOjxgYGDdgpIHv3ZP6NUDvqNesGmJgYNyMUanGp4W8YLtnBVwMDIzVjF5hrh6gm+9iYGDcgFFJYivPe9s9oTkDAwNjNSM9d/VaJdK/Y9LSgYGBsYjxAyNRLLo1eeG1AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '三蚊的博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '细嚼慢咽~~~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>JS的单线程问题 | 三蚊的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="javascript">
+    <meta name="description" content="前言：昨天电话面试，面试官在问了一个关于setTimeOut()的问题，给我一个场景，在setTimeOut(func2,0)函数前有一个执行了3秒的函数func1()，那么func2会立刻执行吗？（我的回答是不会，先执行完func1()再执行func2()），然后面试官又换一个，把func1()放在setTimeOut()后面，同样设置时间0ms，那么func2()里面的函数会立刻执行吗？（我的">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS的单线程问题">
+<meta property="og:url" content="http://yoursite.com/2018/08/01/JS的单线程问题/index.html">
+<meta property="og:site_name" content="三蚊的博客">
+<meta property="og:description" content="前言：昨天电话面试，面试官在问了一个关于setTimeOut()的问题，给我一个场景，在setTimeOut(func2,0)函数前有一个执行了3秒的函数func1()，那么func2会立刻执行吗？（我的回答是不会，先执行完func1()再执行func2()），然后面试官又换一个，把func1()放在setTimeOut()后面，同样设置时间0ms，那么func2()里面的函数会立刻执行吗？（我的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018/08/01/JS的单线程问题/单线程.png">
+<meta property="og:updated_time" content="2018-08-14T13:11:29.442Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS的单线程问题">
+<meta name="twitter:description" content="前言：昨天电话面试，面试官在问了一个关于setTimeOut()的问题，给我一个场景，在setTimeOut(func2,0)函数前有一个执行了3秒的函数func1()，那么func2会立刻执行吗？（我的回答是不会，先执行完func1()再执行func2()），然后面试官又换一个，把func1()放在setTimeOut()后面，同样设置时间0ms，那么func2()里面的函数会立刻执行吗？（我的">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/01/JS的单线程问题/单线程.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="三蚊的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">UranusChan</h5>
+          <a href="mailto:wencinchen@163.com" title="wencinchen@163.com" class="mail">wencinchen@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wenjingchan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/u/1881214570" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">JS的单线程问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">JS的单线程问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-01T01:28:51.000Z" itemprop="datePublished" class="page-time">
+  2018-08-01
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、Javascript是单线程的"><span class="post-toc-number">1.</span> <span class="post-toc-text">一、Javascript是单线程的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、同步和异步概念"><span class="post-toc-number">2.</span> <span class="post-toc-text">二、同步和异步概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、任务队列和事件循环"><span class="post-toc-number">3.</span> <span class="post-toc-text">三、任务队列和事件循环</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-JS的单线程问题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">JS的单线程问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-01 09:28:51" datetime="2018-08-01T01:28:51.000Z"  itemprop="datePublished">2018-08-01</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>前言：昨天电话面试，面试官在问了一个关于setTimeOut()的问题，给我一个场景，在setTimeOut(func2,0)函数前有一个执行了3秒的函数func1()，那么func2会立刻执行吗？（我的回答是不会，先执行完func1()再执行func2()），然后面试官又换一个，把func1()放在setTimeOut()后面，同样设置时间0ms，那么func2()里面的函数会立刻执行吗？（我的回答是会的，这里就答错了，答案是不一定，因为要看主线程内的命令是否已经执行完了）。归根结底，面试官想考察我的地方是js的单线程问题。下面是我查找资料后的一些总结。</p>
+<h2 id="一、Javascript是单线程的"><a href="#一、Javascript是单线程的" class="headerlink" title="一、Javascript是单线程的"></a>一、Javascript是单线程的</h2><p>单线程，即浏览器只分配给js一个主线程，用来执行任务，但一次只能执行一个任务，这些任务形成一个任务队列排队等候执行，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。</p>
+<p>为什么JavaScript是单线程的，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？</p>
+<p>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完 全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
+<p>虽然js是单线程的，但是浏览器内部是多线程的，除了js引擎线程，它还有UI渲染线程、浏览器事件触发线程、http请求线程……</p>
+<h2 id="二、同步和异步概念"><a href="#二、同步和异步概念" class="headerlink" title="二、同步和异步概念"></a>二、同步和异步概念</h2><p>前端的某些任务是非常耗时的，比如网络请求，定时器和事件监听，如果让他们和别的任务一样，都老老实实的排队等待执行的话，执行效率会非常的低，甚至导致页面无反应（假死）。</p>
+<p>为了解决这个问题，Javascript语言将任务的执行模式分成两种：同步和异步。</p>
+<ul>
+<li><p>“同步模式”就是在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；程序的执行顺序与任务的排列顺序是一致的、同步的；</p>
+</li>
+<li><p>“异步模式”则不进入主线程、而进入”任务队列”（也称消息队列），每一个任务指定回调函数，只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。所谓”回调函数”，就是那些会被主线程挂起来的代码。</p>
+</li>
+</ul>
+<h2 id="三、任务队列和事件循环"><a href="#三、任务队列和事件循环" class="headerlink" title="三、任务队列和事件循环"></a>三、任务队列和事件循环</h2><p><em>！！！异步机制，这里要好好了解一下任务队列和事件循环。</em></p>
+<p>请看下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）</p>
+<img src="/2018/08/01/JS的单线程问题/单线程.png" title="任务队列和事件循环">
+<p>Stack（栈）用来执行同步任务，即那种能立刻执行，不耗时的任务。Heap（堆）用来存储声明的变量、对象。上图中的虚线部分就是主线程，堆（heap）和栈（stack）共同组成了js主线程。下面的callback queue（回调队列也就是任务队列），当出现异步任务时，只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取，执行对应的回调函数。</p>
+<p>主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-08-14T13:11:29.442Z" itemprop="dateUpdated">2018-08-14 21:11:29</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/08/01/JS的单线程问题/" target="_blank" rel="external">http://yoursite.com/2018/08/01/JS的单线程问题/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="UranusChan">
+            UranusChan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/08/01/JS的单线程问题/&title=《JS的单线程问题》 — 三蚊的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/08/01/JS的单线程问题/&title=《JS的单线程问题》 — 三蚊的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/08/01/JS的单线程问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JS的单线程问题》 — 三蚊的博客&url=http://yoursite.com/2018/08/01/JS的单线程问题/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/08/01/JS的单线程问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/08/08/清楚浮动的方法总结/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">清楚浮动的方法总结</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/31/markdowm文件的编写方法/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">markdowm文件的编写方法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>UranusChan &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/08/01/JS的单线程问题/&title=《JS的单线程问题》 — 三蚊的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/08/01/JS的单线程问题/&title=《JS的单线程问题》 — 三蚊的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/08/01/JS的单线程问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JS的单线程问题》 — 三蚊的博客&url=http://yoursite.com/2018/08/01/JS的单线程问题/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/08/01/JS的单线程问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3a0UrEQAwF0P3/n17BJ0G63CSj0PTMkxTpzKkQk0ler3i9v1fy5OeqPv/9O4cXBgbGbRnJ6662770h2b1MxcDAeADjc5CtHuhsVEz+AWBgYGBcHTEPjskbMDAwMM4G3CT5mz/BwMDAqKZryRVbHl6rBfOxWhwDA+OGjGpj4D9//sP+BgYGxk0Y79aqJo69FkLhPBgYGKsZ+YV+0gaolrWf982boBgYGE9gVEco5geqJqCFd2JgYKxmRJfv45dWRysSDAYGxm7GpBmQMCbDZHlAx8DA2M3oXcT3RijyvaqfFQMDYzdjfkFf3f5UmRr1NzAwMFYwqilgLyzmKWM1DcXAwHgCIx+Y6F3oV4vkJLxe/h0wMDBWM3qXYpMksjdOcfkJMDAwVjOq5WJvqCIPtaMGJwYGxgMY1auxebCeNC8v2wMYGBhLGfkVWHUgo9fI7BXPGBgYT2BUt5+UtUnaN5r+wsDAWM3obVBNE6sXatWLPAwMjH2MeRE7D50HhskwMDAewDiVtCURPS+GC7tgYGCsZlTLxXlTs3mgeSmLgYFxQ8a7uHJkHlgPJJ0YGBirGb0A17uMy8Nxr5mKgYGxm3G23dgLsr2Ai4GB8TRGr5E5H/+qBv3LU2FgYGAEpWYyKjEpZQsTIhgYGA9m5InafJh1VGdjYGAsZfRCZDV0fv58CabZ5cDAwLg5o9cYmBwib5TmHxoDA2Mp4ws4p5NhjiIeuwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '三蚊的博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '细嚼慢咽~~~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-31T12:34:29.206Z</updated>
+  <updated>2018-08-14T13:11:29.536Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,127 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>js继承的几种方式</title>
+    <link href="http://yoursite.com/2018/08/14/js%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/08/14/js继承的几种方式/</id>
+    <published>2018-08-14T02:59:41.000Z</published>
+    <updated>2018-08-14T13:11:29.536Z</updated>
+    
+    <content type="html"><![CDATA[<p>ECMAScript支持继承，而且其实现继承的主要是依靠原型链来实现</p><h2 id="一、原型链"><a href="#一、原型链" class="headerlink" title="一、原型链"></a>一、原型链</h2><p><strong>首先要弄清楚构造函数，原型和实例三者的关系！</strong></p><p>构造函数中有一个prototype属性是指向原型的，原型中有一个constructor属性是指向构造函数的（既构造函数和原型对象之间是互相指向对方的），实例对象中有一个[[prototype]]属性是指向原型的。由此可以看出，实例和构造函数之间并没有明确的联系，都是靠原型对象作为两者沟通的桥梁</p><p>当在实例（a,A的实例）中找不到某一属性或方法时，它会去实例的原型对象(A.prototype)中寻找，若是这一个原型对象又是某一个构造函数（B）的实例，结果会怎样？</p><p><strong>若一个原型对象是另一个函数的实例，那么这一个原型对象肯定包含一个指向另一个函数的原型对象的指针（这里如果绕不清楚的话，多看几遍原型对象），又如果另一个函数的原型对象又是另另外一个函数的实例，这样层层递进，就引出了原型链了！</strong></p><blockquote><p>A继承了B——&gt;A的原型是B的实例，A的原型指向B的原型</p></blockquote><p>常用的判断方法：</p><ol><li>.instanceof()——构造函数和实例之间是否存在关系，返回Boolean值</li><li>.isPrototypeOf()——实例与原型对象是否存在关系，返回Boolean值</li></ol><p>=========================================================== </p><pre><code>function SuperType(){    this.name=&quot;cwj&quot;;            this.colors=[&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;];    }function SubType(){}subTpe.prototype=new SuperType();//subType的原型继承了SuperTypevar instance1=new SubType();instance1.colors.push(&quot;yellow&quot;);alert(instance1.colors);//&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;,&quot;yellow&quot;var instance2=new SubType();alert(instance2.colors);//&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;,&quot;yellow&quot;</code></pre><p><strong>原型链继承存在的两个问题：</strong></p><ol><li>引用类型的问题。通过原型链继承，原先的实例的属性和方法会变成原型的属性和方法，若原先的实例中本来就存在一个引用类型的属性，那么原型也会继承这个引用类型的属性，结果会怎样？该原型的所有实例都会共享这一个引用类型的属性，当修改其中一个实例的这一属性时，另一实例也会反映出来。(就像上图中的colors属性）</li><li>创建子类型实例时，不能向超类型传递数据 ,例如我想在创建实例的同时，让name属性的值为“www”，但是不能实现</li></ol><h2 id="二，借用构造函数（解决引用类型的问题，还可以传递参数）"><a href="#二，借用构造函数（解决引用类型的问题，还可以传递参数）" class="headerlink" title="二，借用构造函数（解决引用类型的问题，还可以传递参数）"></a>二，借用构造函数（解决引用类型的问题，还可以传递参数）</h2><pre><code>function SuperType(){    this.name=name;    this.colors=[&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;];}function SubType(){    SuperType.call(this,&quot;wwww&quot;);//继承了SuperType}var instance1=new SubType();instance1.colors.push(&quot;yellow&quot;);alert(instance1.colors);//&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;,&quot;yellow&quot;alert(instance1,name);//&quot;www&quot;var instance2=new SubType();alert(instance2.colors);//&quot;red&quot;,&quot;black&quot;,&quot;yellow&quot;</code></pre><p>用call方法改变SuperType构造函数的执行环境，实际上是在新创建的SubType实例的环境下调用SuperType构造函数，新SubType实例会拥有SuperType函数中定义的所有属性和方法</p><p><strong>借用构造函数存在的问题：函数无法复用</strong></p><h2 id="三、组合继承-最常使用的方法）"><a href="#三、组合继承-最常使用的方法）" class="headerlink" title="三、组合继承(最常使用的方法）"></a>三、组合继承(最常使用的方法）</h2><p>使用原型链实现对原型属性和方法的继承，使用构造函数实现对实例属性的继承</p><pre><code>function SuperType(){    this.name=name;    this.colors=[&quot;red&quot;,&quot;black&quot;,&quot;blue&quot;];}function SubType(){    SuperType.call(this,&quot;wwww&quot;);//继承了SuperType；第二次调用超类构造方法}subType.prototype=new SuperType();//这一步相当于重写了子类的原型，会丢失默认的constructor属性，第一次调用超类构造方法subType.protoype.constructor=subType;</code></pre><p><strong>缺点：组合继承调用了两次超类的构造方法。第一次是创建子类原型时调用，第二次是在调用SubType构造方法时调用</strong></p><h2 id="四、原型式继承"><a href="#四、原型式继承" class="headerlink" title="四、原型式继承"></a>四、原型式继承</h2><p>在已有原型对象的基础上，创建该原型对象的实例，无需用到构造函数。</p><pre><code>function object(o){    function F(){};    F.prototype=o;    return new F();}</code></pre><p>ES5新增了<strong>Object.create()方法</strong>，规范了原型式继承，第一个参数是原型对象，第二个参数是定义的属性</p><h2 id="五、寄生式继承"><a href="#五、寄生式继承" class="headerlink" title="五、寄生式继承"></a>五、寄生式继承</h2><p>在原型继承的基础上，利用工厂模式创建对象自己的方法，然后返回这个对象</p><pre><code>function createAnother(original){    var clone=object(original);//通过原型模式创建实例对象    clone.sayHi=function(){//创建实例对象的方法        alert(&quot;hi&quot;);    };    return clone;//返回对象}</code></pre><h2 id="六、寄生组合继承"><a href="#六、寄生组合继承" class="headerlink" title="六、寄生组合继承"></a>六、寄生组合继承</h2><p>由于组合继承调用了两次超类的构造函数，所以用寄生式继承代替第一次超类构造函数调用（及代替了原型式继承）。</p><p>原型式继承的重点其实是让子类的原型等于超类的实例，这一点寄生式继承也能做到，并且寄生式继承能在没有构造函数的情况下，创建子类，并使子类的原型等于超类的原型</p><pre><code>function inheritPropotype（subType,superType）{    var prototype=object(superType.prototype);//创建一个实例对象，是以superType的原型为原型的实例对象    prototype.constructor=subType;//上一步相当于重写了子类的原型，会丢失默认的constructor属性    subType.prototype=prototype;}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ECMAScript支持继承，而且其实现继承的主要是依靠原型链来实现&lt;/p&gt;
+&lt;h2 id=&quot;一、原型链&quot;&gt;&lt;a href=&quot;#一、原型链&quot; class=&quot;headerlink&quot; title=&quot;一、原型链&quot;&gt;&lt;/a&gt;一、原型链&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;首先要弄清楚构造
+      
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>js创建对象的几种方式</title>
+    <link href="http://yoursite.com/2018/08/14/js%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/08/14/js创建对象的几种方式/</id>
+    <published>2018-08-14T02:46:02.000Z</published>
+    <updated>2018-08-14T13:11:29.567Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、工厂模式"><a href="#一、工厂模式" class="headerlink" title="一、工厂模式"></a>一、工厂模式</h2><p>一个函数，将对象的属性作为参数传给该函数，返回一个对象</p><pre><code>function createPerson(name,age,job){var o=new Object();    o.name=name;    o.age=age;    o.job=job;    o.sayName=function(){        alert(this.name);};    return o;}var person1=createPerson(&quot;cwj&quot;,&quot;20&quot;,&quot;Doctor&quot;);</code></pre><p><strong>没有把函数的作用域赋值给新对象，新对象的所有方法和属性都属于windows对象</strong></p><p>仅仅解决了创建对象的问题，并不知道创建的是一个什么类型的对象</p><h2 id="二、构造函数模式-（new操作符）"><a href="#二、构造函数模式-（new操作符）" class="headerlink" title="二、构造函数模式 （new操作符）"></a>二、构造函数模式 <strong>（new操作符）</strong></h2><pre><code>function Person(){    this.name=name;    this.age=age;    this.job=job;    this.sayName=function(){        alert(this.name);    };}var person1=new Person(&quot;cwj&quot;,&quot;20&quot;,&quot;Doctor&quot;);</code></pre><p>与工厂模式的区别：</p><ol><li>没有显式创建一个对象（但不代表没有对象）</li><li>没有return语句（但不代表没有返回一个对象</li><li>将构造函数的作用域赋给新对象（既this指向这个新对象）</li></ol><blockquote><p><em>！！！构造函数与普通函数唯一的区别是调用方式不同，任何函数，只要用new操作符来调用就会被当作是构造函数。</em></p></blockquote><h2 id="三、原型模式"><a href="#三、原型模式" class="headerlink" title="三、原型模式"></a>三、原型模式</h2><p>构建的每一个函数都有一个prototype（原型）属性，指向原型对象，而原型对象又有一个constructor属性指向原型的构造函数。（Person.prototype.constructor=Person）</p><blockquote><p>！！！这个原型对象的作用是包含所有实例共享的属性和方法。</p></blockquote><pre><code>function Person(){    Person.prototype.name=&quot;cwj&quot;;    Person.prototype.age=21;    Person.prototype.sayName=function(){       alert(this.name);    }}var peason1=new Person();person1.sayName();//输出“cwj” //既所有的Person的实例在创建的同时就已经拥有name=“cwj”和age=21两个属性了</code></pre><p>当然实例也能拥有自己的属性和方法，但是当实例的属性和方法和原型中的属性和方法同名时，实例的属性和方法将会覆盖原型中的属性和方法（既不能访问存在原型中的属性和方法的值），这种情况下，可以使用<strong>delete操作符</strong>删除实例中与原型同名的属性和方法，这样便能重新访问原型中的属性和方法了</p><p><strong>原型模式中常用到的判断方法：</strong></p><ol><li><p>.isPrototypeOf()——判断对象之间是否存在原型关系Person.prototype.isPrototypeOf(person1)；//true，Person.prototype是 peason1的原型</p></li><li><p>Object.getPrototypeOf()——返回实例的原型对象<br>Object。getPrototypeOf(person1);//Person.prototype</p></li><li><p>.hasOwnproperty()——判断实例是否拥有该属性（既该属性是存在实例中，而不是存在原型对象中，若存在原型对象中，则返回false）<br>person1.hasOwnProperty(“name”);</p></li><li><p>in操作符——同样也是用来判断实例是否拥有该属性，与hasOwnproperty()不同的是，无论属性是在实例中还是在原型对象上，该方法都会返回true</p></li><li><p>获取可枚举属性</p><p>  (1)for in——获取原型和实例上的所有属性</p><p> (2)object.keys(传入对象)——只获取传入对象的属性，如果传入对象是实例，则只会去该实例的属性，不包括原型对象上的</p></li></ol><h2 id="四、组合使用构造方法和原型模式（最广泛使用的方法）"><a href="#四、组合使用构造方法和原型模式（最广泛使用的方法）" class="headerlink" title="四、组合使用构造方法和原型模式（最广泛使用的方法）"></a>四、组合使用构造方法和原型模式<strong>（最广泛使用的方法）</strong></h2><p>构造函数定义的属性不能共享，原型模式定义的引用类型属性容易被某一实例覆盖后而导致所有实例的属性都发生变化（例如数组属性，person1修改原型对象上的数组属性，person2的数组属性也会跟着被修改）</p><p>基于上面两点缺陷，所以出现了组合使用方法！</p><p><strong>用构造函数定义实例属性（实例自己的属性，和其他实例无关）；原型对象定义共享属性</strong></p><h2 id="五、动态原型模式"><a href="#五、动态原型模式" class="headerlink" title="五、动态原型模式"></a>五、动态原型模式</h2><p>在构造函数中判断是否有初始化原型对象的必要</p><pre><code>function Person(name,age,job){    this.name=name;    this.age=age;    this.job=job;    if(typeOf this.sayName !=&quot;function&quot;){        Person.prototype.sayName=function(){            alert(this.name);        }    }/*只有在sayName()不存在的情况下才会在原型对象中创建这个函数，只有初次调用构造函数时这段代码才会生效（既原型已完成初始化）所以当第二次调用构造函数时，不会再执行这段代码*/}</code></pre><h2 id="六、寄生构造函数（一般不建议使用）"><a href="#六、寄生构造函数（一般不建议使用）" class="headerlink" title="六、寄生构造函数（一般不建议使用）"></a>六、寄生构造函数（一般不建议使用）</h2><p>除了使用new操作符，并把使用的包装函数叫做构造函数外，与工厂模式没有区别，该函数的作用仅仅是封装创建对象的代码，然后再返回新创建的对象</p><h2 id="七、稳妥构造函数形式"><a href="#七、稳妥构造函数形式" class="headerlink" title="七、稳妥构造函数形式"></a>七、稳妥构造函数形式</h2><p>所谓稳妥对象是指没有公共属性，而其方法也不引用this的对象。适合用于安全环境</p><pre><code>function Person(name.age,job){    var o=new Object();    //这里可以定义私有变量和函数    o.sayName=function(){        alert(name);    };    //返回对象    return o;}//除了sayName()方法外，没有其他办法可以访问其数据成员了</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、工厂模式&quot;&gt;&lt;a href=&quot;#一、工厂模式&quot; class=&quot;headerlink&quot; title=&quot;一、工厂模式&quot;&gt;&lt;/a&gt;一、工厂模式&lt;/h2&gt;&lt;p&gt;一个函数，将对象的属性作为参数传给该函数，返回一个对象&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;function cr
+      
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>js的this关键字</title>
+    <link href="http://yoursite.com/2018/08/10/js%E7%9A%84this%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://yoursite.com/2018/08/10/js的this对象/</id>
+    <published>2018-08-10T02:01:34.000Z</published>
+    <updated>2018-08-14T13:11:31.395Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>this关键字只与函数的执行环境有关，而与声明环境没有关系。</strong>也就是这个this到底代表的是什么对象要等到函数运行时才知道，this关键字虽然会根据环境变化，但是它始终代表的是调用当前函数的那个对象。这就引出了JS中函数调用的问题。</p><p>在JS中调用函数的模式可以分为4种： 方法调用模式、函数调用模式、构造器调用模式、apply/call/bind调用模式。这些模式在如何初始化关键参数this上存在差异。</p><p>##（1）方法调用模式<br><strong>将函数保存为某个对象的方法时，this被绑定在该对象上；</strong></p><pre><code>1   var name=&quot;window&quot;;//定义全局的变量name2   var obj={3          name:&quot;cwj&quot;,45          sayName:function(){6                 console.log(this.name);7          }8   };9   obj.sayName();//控制台输出cwj</code></pre><blockquote><p>sayName函数作为对象obj的方法调用，所以函数体中的this就代表obj对象</p></blockquote><p>##（2）函数调用模式</p><pre><code>  1 var name=&quot;window&quot;;  2 var obj={3          name:&quot;cwj&quot;,45          sayName:function(){6                 console.log(this.name);7          }8 };9 obj.sayName();//控制台输出cwj1011 function sayName(){12        console.log(this.name);13 }14 sayName();//控制台输出”window”</code></pre><blockquote><p>因为是在全局作用域下调用的sayName函数，所以this指向window对象</p></blockquote><p>##（3）构造器调用模式<br><strong>在一个函数前面加上new关键字来调用，那么就会创建一个连接到该函数的prototype成员的新对象，同时，this会被绑定到这个新对象上。</strong></p><pre><code>1 function getName(){2     this.name=&quot;jjj&quot;; 3 } 4 var person=new getName(); 5 console.log(person.name);//控制台输出jjj</code></pre><blockquote><p>把getName函数通过new关键字调用，复制给person对象，this被绑定为赋值的person对象。</p></blockquote><p>##（4）apply/call调用模式</p><p><strong>apply()和call()是属性的方法，它们的作用是在特定的作用域中调用函数，改变函数的执行环境，实际上等于改变函数体内设置的this对象的值</strong></p><pre><code>1 var name=&quot;window&quot;;2 var obj={3   name:&quot;cwj&quot;,45   sayName:function(){6           console.log(this.name);7   }8 };9 obj.sayName();//控制台输出cwj10   11 function sayName(){12        console.log(this.name);13 }14 sayName()；//控制台输出window15 sayName.apply(obj);//控制台输出cwj</code></pre><blockquote><p>当仅调用sayName函数，this对象指向全局对象window，当调用apply()，并将obj对象作为参数传给apply()时，this对象就开始指向obj对象。</p></blockquote><p>call()和apply()一样。bind()有点不同，bind()是永久性的改变函数的this对象，而apply()和call()方法只是改变一次，apply()和call()语句执行完后，this对象原来指向哪里还是会指向原来的对象。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;this关键字只与函数的执行环境有关，而与声明环境没有关系。&lt;/strong&gt;也就是这个this到底代表的是什么对象要等到函数运行时才知道，this关键字虽然会根据环境变化，但是它始终代表的是调用当前函数的那个对象。这就引出了JS中函数调用的问题。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>清楚浮动的方法总结</title>
+    <link href="http://yoursite.com/2018/08/08/%E6%B8%85%E6%A5%9A%E6%B5%AE%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2018/08/08/清楚浮动的方法总结/</id>
+    <published>2018-08-08T01:49:57.000Z</published>
+    <updated>2018-08-14T13:11:31.864Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p><strong>每一列浮动元素后，都要设置清除浮动</strong></p></blockquote><p>元素进行float操作后，会使元素浮出文档流，使其所在的父级元素无法跟随浮动元素的高度而改变自身高度。所带来的问题就是浮动元素超出了父级元素的包裹范围，若后面跟随有文字、或浮动元素，则会造成布局混乱。</p><p>高度塌陷：浮动元素父元素高度自适应（父元素不写高度时，子元素写了浮动后，父元素会发生高度塌陷）</p><h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><p><strong>给浮动元素的父级设置高度</strong>，解决了父级div无法自动获取到高度的问题。（高度塌陷）</p><p><em>缺点：在浮动元素高度不确定的时候不适用</em></p><h2 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h2><p><strong>在最后一个浮动元素的后面加上有style=”clear:both”的div标签。</strong></p><p>这是最简单有效的清除浮动的方法</p><pre><code>1 &lt;div class=&quot;father&quot;&gt;2    &lt;div class=&quot;float-tab&quot;&gt;我是浮动元素1&lt;/div&gt;3    &lt;div class=&quot;float-tab&quot;&gt;我是浮动元素2&lt;/div&gt;4    &lt;div class=&quot;float-tab&quot;&gt;我是浮动元素3&lt;/div&gt;5    &lt;div class=&quot;float-tab&quot;&gt;我是浮动元素4&lt;/div&gt;6    &lt;div class=&quot;float&quot;&gt;&lt;/div&gt;7    &lt;div class=&quot;float-no&quot;&gt;我不是浮动元素&lt;/div&gt;8 &lt;/div&gt;</code></pre><h2 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h2><p><strong>给父级定义伪元素:after</strong></p><p>方法三的原理和方法二有点类似，只有IE8以上和非IE浏览器才支持:after</p><blockquote><p>IE浏览器需要用到zoom:1。</p></blockquote><pre><code>1 father:after{2       clear:both;3       content:&quot;&quot;;4       display:block;5       visibility:hidden;6       overflow：hidden;7 }</code></pre><blockquote><p><em>!!!注意：content里面的内容仍是属于父级元素的一部分，:after是添加在到父级元素的末尾，而不是后面</em></p></blockquote><p><strong>ps：这里简单说一下zoom:1属性</strong></p><p>zoom:1;属性是IE浏览器的专有属性，Firefox等其它浏览器不支持。它可以设置或检索对象的缩放比例。除此之外，它还有其他一些小作用，比如触发ie的hasLayout属性，清除浮动、清除margin的重叠等。</p><h2 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h2><p><strong>给父级容器定义overflow:hidden</strong></p><blockquote><p><em>!!!注意：需要配合 宽度 或者 zoom 兼容IE6 IE7；</em></p></blockquote><h2 id="方法五："><a href="#方法五：" class="headerlink" title="方法五："></a>方法五：</h2><p><strong>为父级容器也设置成浮动</strong></p><p><em>缺点：需要给每个浮动元素父级添加浮动，浮动多了容易出现问题。</em></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;每一列浮动元素后，都要设置清除浮动&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;元素进行float操作后，会使元素浮出文档流，使其所在的父级元素无法跟随浮动元素的高度而改变自身高度。所带来的问题就是浮动元素超出了父级
+      
+    
+    </summary>
+    
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS的单线程问题</title>
+    <link href="http://yoursite.com/2018/08/01/JS%E7%9A%84%E5%8D%95%E7%BA%BF%E7%A8%8B%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2018/08/01/JS的单线程问题/</id>
+    <published>2018-08-01T01:28:51.000Z</published>
+    <updated>2018-08-14T13:11:29.442Z</updated>
+    
+    <content type="html"><![CDATA[<p>前言：昨天电话面试，面试官在问了一个关于setTimeOut()的问题，给我一个场景，在setTimeOut(func2,0)函数前有一个执行了3秒的函数func1()，那么func2会立刻执行吗？（我的回答是不会，先执行完func1()再执行func2()），然后面试官又换一个，把func1()放在setTimeOut()后面，同样设置时间0ms，那么func2()里面的函数会立刻执行吗？（我的回答是会的，这里就答错了，答案是不一定，因为要看主线程内的命令是否已经执行完了）。归根结底，面试官想考察我的地方是js的单线程问题。下面是我查找资料后的一些总结。</p><h2 id="一、Javascript是单线程的"><a href="#一、Javascript是单线程的" class="headerlink" title="一、Javascript是单线程的"></a>一、Javascript是单线程的</h2><p>单线程，即浏览器只分配给js一个主线程，用来执行任务，但一次只能执行一个任务，这些任务形成一个任务队列排队等候执行，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。</p><p>为什么JavaScript是单线程的，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？</p><p>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完 全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p><p>虽然js是单线程的，但是浏览器内部是多线程的，除了js引擎线程，它还有UI渲染线程、浏览器事件触发线程、http请求线程……</p><h2 id="二、同步和异步概念"><a href="#二、同步和异步概念" class="headerlink" title="二、同步和异步概念"></a>二、同步和异步概念</h2><p>前端的某些任务是非常耗时的，比如网络请求，定时器和事件监听，如果让他们和别的任务一样，都老老实实的排队等待执行的话，执行效率会非常的低，甚至导致页面无反应（假死）。</p><p>为了解决这个问题，Javascript语言将任务的执行模式分成两种：同步和异步。</p><ul><li><p>“同步模式”就是在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；程序的执行顺序与任务的排列顺序是一致的、同步的；</p></li><li><p>“异步模式”则不进入主线程、而进入”任务队列”（也称消息队列），每一个任务指定回调函数，只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。所谓”回调函数”，就是那些会被主线程挂起来的代码。</p></li></ul><h2 id="三、任务队列和事件循环"><a href="#三、任务队列和事件循环" class="headerlink" title="三、任务队列和事件循环"></a>三、任务队列和事件循环</h2><p><em>！！！异步机制，这里要好好了解一下任务队列和事件循环。</em></p><p>请看下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）</p><img src="/2018/08/01/JS的单线程问题/单线程.png" title="任务队列和事件循环"><p>Stack（栈）用来执行同步任务，即那种能立刻执行，不耗时的任务。Heap（堆）用来存储声明的变量、对象。上图中的虚线部分就是主线程，堆（heap）和栈（stack）共同组成了js主线程。下面的callback queue（回调队列也就是任务队列），当出现异步任务时，只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取，执行对应的回调函数。</p><p>主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;前言：昨天电话面试，面试官在问了一个关于setTimeOut()的问题，给我一个场景，在setTimeOut(func2,0)函数前有一个执行了3秒的函数func1()，那么func2会立刻执行吗？（我的回答是不会，先执行完func1()再执行func2()），然后面试官又
+      
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
   
   <entry>
     <title>markdowm文件的编写方法</title>
